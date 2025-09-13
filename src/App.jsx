@@ -1,10 +1,14 @@
+import { RouterProvider } from "react-router";
+import { router } from "./routes/main-routes-file";
+
 function App() {
 
   return (
-    <>
-      <h1 className="text-4xl font-bold underline text-amber-700">Hello world!</h1>
-    </>
+    <div className="all-page">
+      <div className="overlay"></div>
+      <RouterProvider router={router}/>
+    </div>
   );
 }
 
-export default App
+export default App;

@@ -1,0 +1,82 @@
+.login-page{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.login-page .login-form{
+    width: 500px;
+    height: fit-content;
+    background-color: aliceblue;
+    border-radius: 10px;
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(249, 248, 248, 0.12) 0px -12px 30px, rgba(251, 250, 250, 0.12) 0px 4px 6px, rgba(251, 250, 250, 0.17) 0px 12px 13px, rgba(253, 251, 251, 0.09) 0px -3px 5px;
+}
+
+.login-form .header{
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #833AB4;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 33%, rgba(232, 63, 63, 1) 100%);
+    padding: 20px 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: white;
+}
+
+.header h1{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.body {
+    padding: 15px;
+}
+
+.body input{
+    margin-bottom: 15px;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid #833AB4;
+    border-radius: 7px;
+    padding: 5px 10px;
+}
+
+.body .button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body button{
+    width: 50%;
+    background: linear-gradient(90deg, rgb(131, 58, 180) 33%, rgba(232, 63, 63, 1) 100%);
+    color: white;
+    padding: 10px 0px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+    font-size: 13px;
+}
+
+.footer span{
+    font-size: 14px;
+    color: rgb(131, 58, 180) ;
+    font-weight: bold;
+    cursor: pointer;
+}
