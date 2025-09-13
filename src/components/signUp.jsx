@@ -1,5 +1,5 @@
 import InputLayout from "./input/main-input";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { userAccountContext } from "../context/user-account-context";
 import { useNavigate } from "react-router";
 
@@ -7,6 +7,7 @@ function SignUp() {
     const navigate = useNavigate();
     const { userAccounts, setUserAccount } = useContext(userAccountContext);
     const [newUserAccount, setNewUserAccount] = useState({
+        id: Date.now(),
       userName: "",
       userEmail: "",
       userPassword: "",
@@ -16,6 +17,7 @@ function SignUp() {
         e.preventDefault()
         setUserAccount([...userAccounts, newUserAccount])
         setNewUserAccount({
+        id:"",
           userName: "",
           userEmail: "",
           userPassword: "",
@@ -25,6 +27,12 @@ function SignUp() {
             navigate("/login/signin", { replace: true });
         } , 3000)
     }
+
+
+    // store the data to localstorage
+    useEffect(() => {
+        localStorage.setItem("userAccounts", JSON.stringify(userAccounts))
+    },[userAccounts])
   return (
     <>
       <div className="signIn">
@@ -64,7 +72,7 @@ function SignUp() {
               }
             />
             <div className="button">
-              <button>register</button>
+              <button>Register</button>
             </div>
           </form>
         </div>
