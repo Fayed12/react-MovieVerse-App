@@ -1,0 +1,49 @@
+.loading-container {
+    position: absolute;
+    width: 100%;
+    z-index: 10000;
+    height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #833AB4, rgba(232, 63, 63, 1));
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+  margin-bottom: 20px;
+}
+
+.loading-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* نبض */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

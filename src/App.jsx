@@ -6,7 +6,10 @@ import { userAccountContext } from "./context/user-account-context";
 import { loginStatusContext } from "./context/login-status-context";
 
 function App() {
-  const [userAccounts, setUserAccount] = useState([])
+  const [userAccounts, setUserAccount] = useState(() => {
+    const storedAccounts = localStorage.getItem("userAccounts");
+    return storedAccounts ? JSON.parse(storedAccounts) : [];
+  })
   const [userLoginStatus, setUserLoginStatus] = useState(false);
 
 

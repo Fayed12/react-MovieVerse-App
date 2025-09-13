@@ -1,41 +1,47 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import InputLayout from "./input/main-input";
-import { userAccountContext } from "../context/user-account-context";
+import LoginFailedPopup from "./login-failed-popup/login-failed";
 import { loginStatusContext } from "../context/login-status-context";
 
 function SignIn() {
   const navigate = useNavigate();
-  const { userAccounts } = useContext(userAccountContext);
-  const { userLoginStatus, setUserLoginStatus } =
-    useContext(loginStatusContext);
+  const { setUserLoginStatus } = useContext(loginStatusContext);
+  const [openPopup, setOpenPopup] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
+  // load data from localstorage
   const usersAccounts = JSON.parse(localStorage.getItem("userAccounts"));
 
   // function  to handle the submit form and compare the users
   function handleCheckLogin(e) {
     e.preventDefault();
     if (usersAccounts.length <= 0) {
+      alert("something went wrong");
       return;
     } else {
-      usersAccounts.forEach((userAccount) => {
-        if (
+      const foundUser = usersAccounts.find(
+        (userAccount) =>
           userAccount.userEmail === userEmail &&
           userAccount.userPassword === userPassword
-        ) {
-          setUserLoginStatus(true);
-          alert("login successfuly");
-          setTimeout(() => {
-            navigate("/home", { replace: true });
-          }, 2000);
-        } else {
-          alert("something went wrong");
-        }
-      });
+      );
+
+      if (foundUser) {
+        setUserLoginStatus(true);
+            localStorage.setItem("isLoggedIn", "true");
+            setTimeout(() => {
+              navigate("/home", { replace: true });
+            }, 3000);
+      } else {
+        setOpenPopup(true)
+        setTimeout(() => {
+          setOpenPopup(false)
+        }, 2000);
+      }
     }
   }
+
   return (
     <>
       <div className="signIn">
@@ -60,6 +66,7 @@ function SignIn() {
             </div>
           </form>
         </div>
+        {openPopup && <LoginFailedPopup/>}
       </div>
     </>
   );

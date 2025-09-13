@@ -1,11 +1,17 @@
 import "./login.css";
-import { useState } from "react";
+import { useState, useContext,useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
-
+import { loginStatusContext } from "../../context/login-status-context";
+import LoginSuccessPopup from "../../components/login-success-popup.jsx/login-success";
+import LoadingPage from "../../components/loading/loading";
 
 function LoginLayout() {
     const navigate = useNavigate();
+  const [openPopup, setOpenPopup] = useState(false);
+  const [openLoading, setOpenLoading] = useState(false);
     const [loginStatus, setLoginStatus] = useState("signin");
+      const { userLoginStatus, setUserLoginStatus } = useContext(loginStatusContext);
+    
     
     // function to navigate between signin and signup
   function handleSignUp() {
@@ -17,25 +23,63 @@ function LoginLayout() {
       navigate("signin", { replace: true });
     }
     }
+
+    useEffect(() => {
+      if (userLoginStatus === true) {
+        setOpenPopup(true);
+        const timer = setTimeout(() => {
+          setOpenPopup(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+      } else {
+        setOpenPopup(false);
+      }
+    }, [userLoginStatus]); 
+
+    // check if the user is loggedIn
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        if (isLoggedIn === "true") {
+            setOpenLoading(true)
+            setUserLoginStatus(true)
+            const navigateTimer = setTimeout(() => {
+                navigate("/home", { replace: true });
+                setOpenLoading(false);
+            }, 2000);
+
+            return () => {
+              clearTimeout(navigateTimer);
+            };
+        }
+
+    }, [navigate, setUserLoginStatus]);
+
+
   return (
     <>
       <div className="login-page">
-        <div className="login-form">
-          <div className="header">
-            <h1>Login Form</h1>
+        {openLoading ? (
+          <LoadingPage />
+        ) : (
+          <div className="login-form">
+            <div className="header">
+              <h1>Login Form</h1>
+            </div>
+            <div className="body">
+              <Outlet />
+            </div>
+            <div className="footer">
+              <p>
+                Not a member?
+                <span onClick={handleSignUp}>
+                  {loginStatus === "signin" ? "signUp" : "signIn"}
+                </span>
+              </p>
+            </div>
           </div>
-          <div className="body">
-            <Outlet />
-          </div>
-          <div className="footer">
-            <p>
-              Not a member?{" "}
-              <span onClick={handleSignUp}>
-                {loginStatus === "signin" ? "signUp" : "signIn"}
-              </span>
-            </p>
-          </div>
-        </div>
+        )}
+        {openPopup && <LoginSuccessPopup />}
       </div>
     </>
   );
