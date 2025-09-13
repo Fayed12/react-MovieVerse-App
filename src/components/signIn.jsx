@@ -2,13 +2,14 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import InputLayout from "./input/main-input";
 import { userAccountContext } from "../context/user-account-context";
+import { loginStatusContext } from "../context/login-status-context";
 
 function SignIn() {
   const navigate = useNavigate();
       const { userAccounts } = useContext(userAccountContext);
+      const { userLoginStatus, setUserLoginStatus } = useContext(loginStatusContext);
     const [userEmail, setUserEmail] = useState("")
   const [userPassword, setUserPassword] = useState("")
-  const[loginStatus ,setLoginStatus ] = useState(false)
   
   // function  to handle the submit form and compare the users
   function handleCheckLogin(e) {
@@ -21,7 +22,7 @@ function SignIn() {
                 userAccount.userEmail === userEmail &&
                 userAccount.userPassword === userPassword
               ) {
-                setLoginStatus(true);
+                setUserLoginStatus(true);
                 alert("login successfuly");
                 setTimeout(() => {
                   navigate("/home" ,{replace:true})

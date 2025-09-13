@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router";
 
 
 function LoginLayout() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
     const [loginStatus, setLoginStatus] = useState("signin");
     
     // function to navigate between signin and signup
