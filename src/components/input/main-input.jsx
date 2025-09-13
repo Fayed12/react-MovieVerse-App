@@ -1,18 +1,16 @@
-import "./input.css"
-
-function InputLayout() {
-    return (
-      <div className="input-layout">
-        <input
-          type="text"
-          placeholder="username"
-          min={10}
-          max={40}
-          value={"mohamed"}
-          onChange={(e) => e.target.value}
-        />
-      </div>
-    );
+function InputLayout({ type, placeholder, userValue, setValue, min = 10, max=50 }) {
+  return (
+    <div className="input-layout">
+      <input
+        type={type}
+        placeholder={placeholder}
+        min={min}
+        max={max}
+        value={userValue}
+        onChange={setValue}
+      />
+    </div>
+  );
 }
 
 export default InputLayout;
