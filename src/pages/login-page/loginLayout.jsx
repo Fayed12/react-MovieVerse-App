@@ -39,7 +39,7 @@ function LoginLayout() {
 
     // check if the user is loggedIn
     useEffect(() => {
-        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const isLoggedIn = sessionStorage.getItem("isLoggedIn");
         if (isLoggedIn === "true") {
             setOpenLoading(true)
             setUserLoginStatus(true)

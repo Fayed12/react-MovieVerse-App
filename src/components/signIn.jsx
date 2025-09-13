@@ -29,7 +29,7 @@ function SignIn() {
 
       if (foundUser) {
         setUserLoginStatus(true);
-            localStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("isLoggedIn", "true");
             setTimeout(() => {
               navigate("/home", { replace: true });
             }, 3000);
