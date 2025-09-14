@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import LoginLayout from "../pages/login-page/loginLayout";
-import HomePage from "../pages/home-page/home";
+import MainPageLayout from "../pages/main-page/main-page-layout";
 import SignIn from "../components/signIn";
 import SignUp from "../components/signUp";
 import ProtectedRoute from "./ProtectedRoute";
@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: (
       <ProtectedRoute>
-        <HomePage />
+        <MainPageLayout />
       </ProtectedRoute>
     ),
   },
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
     path: "/home",
     element: (
       <ProtectedRoute>
-        <HomePage />
+        <MainPageLayout />
       </ProtectedRoute>
     ),
   },

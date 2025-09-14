@@ -1,6 +1,6 @@
-import "./home.css"
+import "./main-page-layout.css"
 
-function HomePage() {
+function  MainPageLayout() {
     return (
       <>
         <div className="Home-page">
@@ -12,4 +12,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default MainPageLayout;

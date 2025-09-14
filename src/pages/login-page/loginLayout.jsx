@@ -1,19 +1,19 @@
 import "./login.css";
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { loginStatusContext } from "../../context/login-status-context";
-import LoginSuccessPopup from "../../components/login-success-popup.jsx/login-success";
+import LoginSuccessPopup from "../../components/login-success-popup/login-success";
 import LoadingPage from "../../components/loading/loading";
 
 function LoginLayout() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [openPopup, setOpenPopup] = useState(false);
   const [openLoading, setOpenLoading] = useState(false);
-    const [loginStatus, setLoginStatus] = useState("signin");
-      const { userLoginStatus, setUserLoginStatus } = useContext(loginStatusContext);
-    
-    
-    // function to navigate between signin and signup
+  const [loginStatus, setLoginStatus] = useState("signin");
+  const { userLoginStatus, setUserLoginStatus } =
+    useContext(loginStatusContext);
+
+  // function to navigate between signin and signup
   function handleSignUp() {
     if (loginStatus === "signin") {
       setLoginStatus("signup");
@@ -22,39 +22,46 @@ function LoginLayout() {
       setLoginStatus("signin");
       navigate("signin", { replace: true });
     }
-    }
+  }
 
-    useEffect(() => {
-      if (userLoginStatus === true) {
-        setOpenPopup(true);
-        const timer = setTimeout(() => {
-          setOpenPopup(false);
-        }, 3000);
-
-        return () => clearTimeout(timer);
-      } else {
+  useEffect(() => {
+    if (userLoginStatus === true) {
+      setOpenPopup(true);
+      const loadingTimer = setTimeout(() => {
+        setOpenLoading(true)
+      }, 2000);
+      const timer = setTimeout(() => {
         setOpenPopup(false);
+        setOpenLoading(false)
+      }, 4000);
+
+      function clearTime() {
+        clearTimeout(timer)
+        clearTimeout(loadingTimer);
       }
-    }, [userLoginStatus]); 
 
-    // check if the user is loggedIn
-    useEffect(() => {
-        const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-        if (isLoggedIn === "true") {
-            setOpenLoading(true)
-            setUserLoginStatus(true)
-            const navigateTimer = setTimeout(() => {
-                navigate("/home", { replace: true });
-                setOpenLoading(false);
-            }, 2000);
+      return () => clearTime();
+    } else {
+      setOpenPopup(false);
+    }
+  }, [userLoginStatus]);
 
-            return () => {
-              clearTimeout(navigateTimer);
-            };
-        }
+  // check if the user is loggedIn
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      setOpenLoading(true);
+      setUserLoginStatus(true);
+      const navigateTimer = setTimeout(() => {
+        navigate("/home", { replace: true });
+        setOpenLoading(false);
+      }, 2000);
 
-    }, [navigate, setUserLoginStatus]);
-
+      return () => {
+        clearTimeout(navigateTimer);
+      };
+    }
+  }, [navigate, setUserLoginStatus]);
 
   return (
     <>
@@ -67,7 +74,7 @@ function LoginLayout() {
               <h1>Login Form</h1>
             </div>
             <div className="body">
-              <Outlet />
+              <Outlet context={{ setLoginStatus }} />
             </div>
             <div className="footer">
               <p>
