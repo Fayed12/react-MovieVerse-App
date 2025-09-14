@@ -28,6 +28,7 @@ function SignIn() {
       );
 
       if (foundUser) {
+        sessionStorage.setItem("userAccount", JSON.stringify(foundUser));
         setUserLoginStatus(true);
             sessionStorage.setItem("isLoggedIn", "true");
             setTimeout(() => {

@@ -1,12 +1,16 @@
+import NavBAr from "../../components/nav-bar/navBar";
 import "./main-page-layout.css"
 
 function  MainPageLayout() {
     return (
       <>
         <div className="Home-page">
-          <h1 className="flex justify-center items-center text-4xl font-bold underline text-amber-700">
-            Hello world!
-          </h1>
+          <nav>
+            <NavBAr/>
+          </nav>
+          <main>
+            <h1>hello</h1>
+          </main>
         </div>
       </>
     );

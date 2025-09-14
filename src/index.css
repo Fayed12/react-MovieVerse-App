@@ -10,11 +10,12 @@
 
 .all-page{
     width: 100%;
-    height: 100dvh;
+    max-height: fit-content;
     background-image: url(/fastx.webp);
-    background-position: center center;
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
 }
 
