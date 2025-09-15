@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "./searchMovies.css";
+import SortIcon from "@mui/icons-material/Sort";
 
 export default function SearchMovies({
   moviesData = [],
@@ -7,21 +8,21 @@ export default function SearchMovies({
   setSearchValue,
   searchValue,
 }) {
-    console.log(moviesData)
+  console.log(moviesData);
 
-    // focus to input 
+  // focus to input
   useEffect(() => {
     const newSearchButton = document.getElementById("newSearch");
-      if (searchValue == "") {
-        newSearchButton.focus()
+    if (searchValue == "") {
+      newSearchButton.focus();
     }
-  },[searchValue]);
+  }, [searchValue]);
 
-    // set the search value
+  // set the search value
   function handleNewSearch() {
     setSearchValue("");
-    }
-    
+  }
+
   return (
     <div className="search-page">
       <div className="container">
@@ -29,11 +30,14 @@ export default function SearchMovies({
           <div>
             <h1 className="title">Search Results</h1>
             <p className="subtitle">
-              Results for your query — browse and pick a movie
+              Results for your query — browse and pick a movie, find{" "}
+              {moviesData.length} movies
             </p>
           </div>
           <div className="header-actions">
-            <button className="btn filter">Filter</button>
+            <button className="btn filter">
+              <SortIcon /> sort
+            </button>
             <button className="btn new-search" onClick={handleNewSearch}>
               New Search
             </button>
