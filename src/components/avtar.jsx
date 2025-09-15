@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { loginStatusContext } from "../context/login-status-context";
 
 export default function LetterAvatars() {
-  const { userLoginStatus, setUserLoginStatus } =
+  const {setUserLoginStatus } =
     useContext(loginStatusContext);
   const [userLoggedAccount, setUserLoggedAccount] = useState()
   

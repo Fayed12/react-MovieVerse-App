@@ -1,4 +1,5 @@
 import NavBAr from "../../components/nav-bar/navBar";
+import SearchPage from "../search-page/searchPage";
 import "./main-page-layout.css"
 
 function  MainPageLayout() {
@@ -6,10 +7,12 @@ function  MainPageLayout() {
       <>
         <div className="Home-page">
           <nav>
-            <NavBAr/>
+            <NavBAr />
           </nav>
-          <main>
-            <h1>hello</h1>
+          <main className="flex justify-center">
+            <div className="container">
+            <SearchPage />
+            </div>
           </main>
         </div>
       </>

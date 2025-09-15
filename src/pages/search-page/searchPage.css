@@ -1,0 +1,10 @@
+.search-content .search-input{
+    background-color: #26182d;
+    border-radius:10px;
+}
+
+.search-input input{
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 7px;
+}

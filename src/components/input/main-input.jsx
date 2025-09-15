@@ -1,7 +1,8 @@
-function InputLayout({ type, placeholder, userValue, setValue, min = 10, max=50 }) {
+function InputLayout({id="", type, placeholder, userValue, setValue, min = 5, max=60 }) {
   return (
     <div className="input-layout">
       <input
+        id={id}
         type={type}
         placeholder={placeholder}
         min={min}
