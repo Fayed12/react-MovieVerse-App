@@ -10,6 +10,7 @@ export default function SearchMovies({
   setSearchValue,
   searchValue,
   setMoviesData,
+  setMoviesDataSearch,
 }) {
   const [sortValue, setSortValue] = useState();
   const [openSavedMovies, setOpenSavedMovies] = useState(false);
@@ -35,6 +36,7 @@ export default function SearchMovies({
   // set the search value
   function handleNewSearch() {
     setSearchValue("");
+    setMoviesDataSearch([])
   }
 
   // handle sort movies
@@ -75,7 +77,7 @@ export default function SearchMovies({
 
   // handle open saved movies
   function handleOpenSavedMovies() {
-    setOpenSavedMovies(!openSavedMovies)
+    setOpenSavedMovies(!openSavedMovies);
   }
 
   return (

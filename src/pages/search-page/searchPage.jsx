@@ -63,6 +63,7 @@ function SearchPage() {
         <div className="search-body">
           <div className="movies-side">
             <SearchMovies
+              setMoviesDataSearch={setMoviesDataSearch}
               moviesData={moviesDataSearch}
               setMoviesData={setMoviesDataSearch}
               loadingStatus={loading}
