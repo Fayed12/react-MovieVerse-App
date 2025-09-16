@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import SearchMovies from "../../components/search-movies-side/searchMovies";
 
 function SearchPage() {
-    const [ searchValue, setSearchValue ] = useState("");
+  const [searchValue, setSearchValue] = useState(() => {
+    let search = sessionStorage.getItem("search");
+    if (search) {
+      return search;
+    } else {
+      return ""
+    }
+    });
     const [loading , setLoading] = useState(false)
     const [moviesDataSearch , setMoviesDataSearch] = useState([])
     
@@ -12,7 +19,8 @@ function SearchPage() {
 
         const controller = new AbortController;
         async function fetchData() {
-            try {
+          try {
+            sessionStorage.setItem("search", searchValue)
                 setLoading(true)
                 const res = await fetch(`https://www.omdbapi.com/?apikey=eb0d837a&s=${searchValue}` , {signal:controller.signal});
                 if (!res.ok) {
