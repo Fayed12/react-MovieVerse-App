@@ -12,13 +12,16 @@ function SignIn() {
   const [userPassword, setUserPassword] = useState("");
 
   // load data from localstorage
-  const usersAccounts = JSON.parse(localStorage.getItem("userAccounts"));
+  const usersAccounts = JSON.parse(localStorage.getItem("userAccounts")) || [];
 
   // function  to handle the submit form and compare the users
   function handleCheckLogin(e) {
     e.preventDefault();
-    if (usersAccounts.length <= 0) {
-      alert("something went wrong");
+    if (!usersAccounts && usersAccounts.length <= 0) {
+      setOpenPopup(true);
+      setTimeout(() => {
+        setOpenPopup(false)
+      }, 3000);
       return;
     } else {
       const foundUser = usersAccounts.find(
@@ -30,14 +33,14 @@ function SignIn() {
       if (foundUser) {
         sessionStorage.setItem("userAccount", JSON.stringify(foundUser));
         setUserLoginStatus(true);
-            sessionStorage.setItem("isLoggedIn", "true");
-            setTimeout(() => {
-              navigate("/home", { replace: true });
-            }, 3000);
-      } else {
-        setOpenPopup(true)
+        sessionStorage.setItem("isLoggedIn", "true");
         setTimeout(() => {
-          setOpenPopup(false)
+          navigate("/home", { replace: true });
+        }, 3000);
+      } else {
+        setOpenPopup(true);
+        setTimeout(() => {
+          setOpenPopup(false);
         }, 2000);
       }
     }

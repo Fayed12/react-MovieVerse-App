@@ -11,6 +11,16 @@ export default function SearchMovies({
   setMoviesData,
 }) {
   const [sortValue, setSortValue] = useState();
+  const [savedMovies, setSavedMovies] = useState(() => {
+    const user = JSON.parse(sessionStorage.getItem("userAccount"));
+    const dataMovies = JSON.parse(
+      localStorage.getItem(`savedMoviesOf${user.userName}`)
+    );
+    if (dataMovies) {
+      return dataMovies;
+    }
+    return [];
+  });
 
   // focus to input
   useEffect(() => {
@@ -43,8 +53,21 @@ export default function SearchMovies({
 
       setMoviesData(sortedMovies);
     }
-    
   }, [sortValue, setMoviesData]);
+
+  // handle save movie when click is done
+  function handleSaveMovies(id) {
+    const movie = moviesData.find((movie) => movie.imdbID == id);
+
+    const updatedSavedMovies = [...savedMovies, movie];
+    setSavedMovies(updatedSavedMovies);
+
+    const user = JSON.parse(sessionStorage.getItem("userAccount"));
+    localStorage.setItem(
+      `savedMoviesOf${user.userName}`,
+      JSON.stringify(updatedSavedMovies)
+    );
+  }
 
   return (
     <div className="search-page">
@@ -58,6 +81,7 @@ export default function SearchMovies({
             </p>
           </div>
           <div className="header-actions">
+            <button className="btn new-search">saved</button>
             <div className="search-btn filter">
               <Select
                 defaultValue="default"
@@ -116,7 +140,20 @@ export default function SearchMovies({
                       >
                         View
                       </a>
-                      <button className="btn save">Save</button>
+                      <button
+                        className={`btn save ${
+                          savedMovies.some((m) => m.imdbID === movie.imdbID) &&
+                          "disabledSave"
+                        }`}
+                        onClick={() => handleSaveMovies(movie.imdbID)}
+                        disabled={savedMovies.some(
+                          (m) => m.imdbID === movie.imdbID
+                        )}
+                      >
+                        {savedMovies.some((m) => m.imdbID === movie.imdbID)
+                          ? "Saved"
+                          : "Save"}
+                      </button>
                     </div>
                   </div>
                 </article>
