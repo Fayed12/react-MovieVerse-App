@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./searchMovies.css";
 import SortIcon from "@mui/icons-material/Sort";
 import { Select, MenuItem } from "@mui/material";
+import SavedMovies from "../saved-movies/savedMovies";
 
 export default function SearchMovies({
   moviesData = [],
@@ -11,6 +12,7 @@ export default function SearchMovies({
   setMoviesData,
 }) {
   const [sortValue, setSortValue] = useState();
+  const [openSavedMovies, setOpenSavedMovies] = useState(false);
   const [savedMovies, setSavedMovies] = useState(() => {
     const user = JSON.parse(sessionStorage.getItem("userAccount"));
     const dataMovies = JSON.parse(
@@ -69,6 +71,12 @@ export default function SearchMovies({
     );
   }
 
+  // handle open saved movies
+  function handleOpenSavedMovies() {
+    setOpenSavedMovies(!openSavedMovies)
+    console.log(openSavedMovies)
+  }
+
   return (
     <div className="search-page">
       <div className="container">
@@ -76,12 +84,17 @@ export default function SearchMovies({
           <div>
             <h1 className="title">Search Results</h1>
             <p className="subtitle">
-              Results for your query — browse and pick a movie, find{" "}
-              {moviesData.length} movies
+              Results for your query — browse and pick a movie
+              {!openSavedMovies && `, find ${moviesData.length} movies` }
             </p>
           </div>
           <div className="header-actions">
-            <button className="btn new-search">saved</button>
+            <button
+              className={`btn new-search ${openSavedMovies && "disabledSave"}`}
+              onClick={handleOpenSavedMovies}
+            >
+              {!openSavedMovies ? "open saved" : "close saved"}
+            </button>
             <div className="search-btn filter">
               <Select
                 defaultValue="default"
@@ -102,70 +115,75 @@ export default function SearchMovies({
           </div>
         </header>
 
-        {loadingStatus ? (
-          <div className="movies-grid">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="movie-card skeleton">
-                <div className="poster" />
-                <div className="line short" />
-                <div className="line long" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="movies-grid">
-            {moviesData && moviesData.length > 0 ? (
-              moviesData.map((movie) => (
-                <article key={movie.imdbID} className="movie-card">
-                  <div className="poster">
-                    {movie.Poster && movie.Poster !== "N/A" ? (
-                      <img src={movie.Poster} alt={movie.Title} />
-                    ) : (
-                      <div className="no-poster">
-                        <span>No poster</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="movie-info">
-                    <h3 className="movie-title">{movie.Title}</h3>
-                    <p className="movie-year">{movie.Year}</p>
-
-                    <div className="movie-actions">
-                      <a
-                        href={`https://www.imdb.com/title/${movie.imdbID}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn view"
-                      >
-                        View
-                      </a>
-                      <button
-                        className={`btn save ${
-                          savedMovies.some((m) => m.imdbID === movie.imdbID) &&
-                          "disabledSave"
-                        }`}
-                        onClick={() => handleSaveMovies(movie.imdbID)}
-                        disabled={savedMovies.some(
-                          (m) => m.imdbID === movie.imdbID
-                        )}
-                      >
-                        {savedMovies.some((m) => m.imdbID === movie.imdbID)
-                          ? "Saved"
-                          : "Save"}
-                      </button>
+        {!openSavedMovies ? (
+          loadingStatus ? (
+            <div className="movies-grid">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="movie-card skeleton">
+                  <div className="poster" />
+                  <div className="line short" />
+                  <div className="line long" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="movies-grid">
+              {moviesData && moviesData.length > 0 ? (
+                moviesData.map((movie) => (
+                  <article key={movie.imdbID} className="movie-card">
+                    <div className="poster">
+                      {movie.Poster && movie.Poster !== "N/A" ? (
+                        <img src={movie.Poster} alt={movie.Title} />
+                      ) : (
+                        <div className="no-poster">
+                          <span>No poster</span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </article>
-              ))
-            ) : (
-              <div className="no-results">
-                <p>
-                  No results found. Try to search or try a different search.
-                </p>
-              </div>
-            )}
-          </div>
+
+                    <div className="movie-info">
+                      <h3 className="movie-title">{movie.Title}</h3>
+                      <p className="movie-year">{movie.Year}</p>
+
+                      <div className="movie-actions">
+                        <a
+                          href={`https://www.imdb.com/title/${movie.imdbID}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn view"
+                        >
+                          View
+                        </a>
+                        <button
+                          className={`btn save ${
+                            savedMovies.some(
+                              (m) => m.imdbID === movie.imdbID
+                            ) && "disabledSave"
+                          }`}
+                          onClick={() => handleSaveMovies(movie.imdbID)}
+                          disabled={savedMovies.some(
+                            (m) => m.imdbID === movie.imdbID
+                          )}
+                        >
+                          {savedMovies.some((m) => m.imdbID === movie.imdbID)
+                            ? "Saved"
+                            : "Save"}
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <div className="no-results">
+                  <p>
+                    No results found. Try to search or try a different search.
+                  </p>
+                </div>
+              )}
+            </div>
+          )
+        ) : (
+          <SavedMovies/>
         )}
 
         <footer className="footer">

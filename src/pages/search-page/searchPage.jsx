@@ -70,7 +70,6 @@ function SearchPage() {
               searchValue={searchValue}
             />
           </div>
-          <div className="movie-details"></div>
         </div>
       </div>
     </>
