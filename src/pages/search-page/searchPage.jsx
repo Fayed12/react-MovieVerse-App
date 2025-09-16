@@ -27,7 +27,7 @@ function SearchPage() {
                     throw new Error("something error in fetching data from API");
                 }
                 const moviesData =await res.json();
-                if (moviesData.response === "False") {
+                if (moviesData.Response === "False") {
                     throw new Error(
                     "something error in parsing data"
                     );
@@ -45,7 +45,7 @@ function SearchPage() {
 
   return (
     <>
-      <div className="search-content relative p-[15px]!">
+      <div className="search-content relative p-[15px]! h-full">
         <div className="search-input flex justify-between items-center h-[70px] p-[15px]!">
           <div className="text">
             <p className="text-[#c9bdbd] text-[15px]">

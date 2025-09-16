@@ -74,7 +74,6 @@ export default function SearchMovies({
   // handle open saved movies
   function handleOpenSavedMovies() {
     setOpenSavedMovies(!openSavedMovies)
-    console.log(openSavedMovies)
   }
 
   return (
@@ -82,10 +81,14 @@ export default function SearchMovies({
       <div className="container">
         <header className="header">
           <div>
-            <h1 className="title">Search Results</h1>
+            <h1 className="title">
+              {!openSavedMovies ? "Search Results" : "Movies Saved"}
+            </h1>
             <p className="subtitle">
-              Results for your query — browse and pick a movie
-              {!openSavedMovies && `, find ${moviesData.length} movies` }
+              {!openSavedMovies
+                ? "Results for your query — browse and pick a movie"
+                : "The Movies Details"}
+              {!openSavedMovies && `, find ${moviesData.length} movies`}
             </p>
           </div>
           <div className="header-actions">
@@ -95,26 +98,29 @@ export default function SearchMovies({
             >
               {!openSavedMovies ? "open saved" : "close saved"}
             </button>
-            <div className="search-btn filter">
-              <Select
-                defaultValue="default"
-                className="h-[40px] "
-                value={sortValue}
-                onChange={(e) => setSortValue(e.target.value)}
-              >
-                <MenuItem value="default">
-                  <SortIcon style={{ marginRight: "5px" }} /> Sort
-                </MenuItem>
-                <MenuItem value="Year">By year</MenuItem>
-                <MenuItem value="Title">By name</MenuItem>
-              </Select>
-            </div>
-            <button className="btn new-search" onClick={handleNewSearch}>
-              New Search
-            </button>
+            {!openSavedMovies && (
+              <div className="search-btn filter">
+                <Select
+                  defaultValue="default"
+                  className="h-[40px] "
+                  value={sortValue}
+                  onChange={(e) => setSortValue(e.target.value)}
+                >
+                  <MenuItem value="default">
+                    <SortIcon style={{ marginRight: "5px" }} /> Sort
+                  </MenuItem>
+                  <MenuItem value="Year">By year</MenuItem>
+                  <MenuItem value="Title">By name</MenuItem>
+                </Select>
+              </div>
+            )}
+            {!openSavedMovies && (
+              <button className="btn new-search" onClick={handleNewSearch}>
+                New Search
+              </button>
+            )}
           </div>
         </header>
-
         {!openSavedMovies ? (
           loadingStatus ? (
             <div className="movies-grid">
@@ -183,7 +189,7 @@ export default function SearchMovies({
             </div>
           )
         ) : (
-          <SavedMovies/>
+          <SavedMovies />
         )}
 
         <footer className="footer">
