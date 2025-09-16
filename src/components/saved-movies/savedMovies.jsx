@@ -2,18 +2,19 @@ import MoviesSavedOverview from "../movies-save-overview/movieOverview";
 import "./savedMovies.css";
 import { useState, useEffect } from "react";
 
-function SavedMovies() {
+function SavedMovies({ setSavedMovies, savedMovies }) {
   const [selectedMovieId, setSelectedMovieId] = useState("");
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // fetch data by id
-  useEffect(() => {
+    useEffect(() => {
+        const controller = new AbortController();
     async function fetchDataById() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://www.omdbapi.com/?apikey=eb0d837a&i=${selectedMovieId}`
+          `https://www.omdbapi.com/?apikey=eb0d837a&i=${selectedMovieId}`,{signal:controller.signal}
         );
         if (!res.ok) {
           throw new Error("something went wrong when fetching the movie data!");
@@ -30,19 +31,24 @@ function SavedMovies() {
         setLoading(false);
       }
     }
-    fetchDataById();
+        fetchDataById();
+        
+        return () => controller.abort();
   }, [selectedMovieId]);
-  console.log(movieDetails);
   return (
     <>
       <div className="all-movies">
-        <MoviesSavedOverview setMOvieId={setSelectedMovieId} />
+        <MoviesSavedOverview
+          setMOvieId={setSelectedMovieId}
+          setSavedMovies={setSavedMovies}
+          savedMovies={savedMovies}
+        />
       </div>
-          {loading ? (
-              <div className="saved-movie-container flex justify-center items-center">
-                      <span className="text-[1.5rem]">loading....</span>
-                  </div>
-      ): (movieDetails ? (
+      {loading ? (
+        <div className="saved-movie-container flex justify-center items-center">
+          <span className="text-[1.5rem]">loading....</span>
+        </div>
+      ) : movieDetails ? (
         <div className="saved-movie-container">
           <div className="saved-movie-card">
             {/* Poster */}
@@ -116,7 +122,7 @@ function SavedMovies() {
         <div className="saved-movie-container flex justify-center items-center">
           <span className="text-[1.5rem]">try click to any movie</span>
         </div>
-      ))}
+      )}
     </>
   );
 }

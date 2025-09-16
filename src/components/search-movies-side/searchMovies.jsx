@@ -16,7 +16,7 @@ export default function SearchMovies({
   const [savedMovies, setSavedMovies] = useState(() => {
     const user = JSON.parse(sessionStorage.getItem("userAccount"));
     const dataMovies = JSON.parse(
-      localStorage.getItem(`savedMoviesOf${user.userName}`)
+      localStorage.getItem(`savedMoviesOf${user.userName}`) || "[]"
     );
     if (dataMovies) {
       return dataMovies;
@@ -63,13 +63,15 @@ export default function SearchMovies({
 
     const updatedSavedMovies = [...savedMovies, movie];
     setSavedMovies(updatedSavedMovies);
+  }
 
+  useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("userAccount"));
     localStorage.setItem(
       `savedMoviesOf${user.userName}`,
-      JSON.stringify(updatedSavedMovies)
+      JSON.stringify(savedMovies)
     );
-  }
+  }, [savedMovies]);
 
   // handle open saved movies
   function handleOpenSavedMovies() {
@@ -189,7 +191,10 @@ export default function SearchMovies({
             </div>
           )
         ) : (
-          <SavedMovies />
+          <SavedMovies
+            savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
+          />
         )}
 
         <footer className="footer">

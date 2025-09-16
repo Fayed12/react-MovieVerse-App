@@ -50,3 +50,10 @@
     color: #999;
     font-size: .8rem;
 }
+
+.movie-overview-title button{
+  background-color: #3a2b40;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
