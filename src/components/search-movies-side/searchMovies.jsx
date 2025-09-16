@@ -1,14 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./searchMovies.css";
 import SortIcon from "@mui/icons-material/Sort";
+import { Select, MenuItem } from "@mui/material";
 
 export default function SearchMovies({
   moviesData = [],
   loadingStatus = false,
   setSearchValue,
   searchValue,
+  setMoviesData,
 }) {
-  console.log(moviesData);
+  const [sortValue, setSortValue] = useState();
 
   // focus to input
   useEffect(() => {
@@ -23,6 +25,27 @@ export default function SearchMovies({
     setSearchValue("");
   }
 
+  // handle sort movies
+
+  useEffect(() => {
+    if (!sortValue || sortValue === "default") {
+      return;
+    } else {
+      let sortedMovies = [...moviesData];
+
+      if (sortValue === "Year") {
+        sortedMovies.sort((a, b) => parseInt(a.Year) - parseInt(b.Year));
+      }
+
+      if (sortValue === "Title") {
+        sortedMovies.sort((a, b) => a.Title.localeCompare(b.Title));
+      }
+
+      setMoviesData(sortedMovies);
+    }
+    
+  }, [sortValue, setMoviesData]);
+
   return (
     <div className="search-page">
       <div className="container">
@@ -35,9 +58,20 @@ export default function SearchMovies({
             </p>
           </div>
           <div className="header-actions">
-            <button className="btn filter">
-              <SortIcon /> sort
-            </button>
+            <div className="search-btn filter">
+              <Select
+                defaultValue="default"
+                className="h-[40px] "
+                value={sortValue}
+                onChange={(e) => setSortValue(e.target.value)}
+              >
+                <MenuItem value="default">
+                  <SortIcon style={{ marginRight: "5px" }} /> Sort
+                </MenuItem>
+                <MenuItem value="Year">By year</MenuItem>
+                <MenuItem value="Title">By name</MenuItem>
+              </Select>
+            </div>
             <button className="btn new-search" onClick={handleNewSearch}>
               New Search
             </button>
