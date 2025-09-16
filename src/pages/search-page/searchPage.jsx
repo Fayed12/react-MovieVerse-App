@@ -48,7 +48,7 @@ function SearchPage() {
       <div className="search-content relative p-[15px]! h-full">
         <div className="search-input flex justify-between items-center h-[70px] p-[15px]!">
           <div className="text">
-            <p className="text-[#c9bdbd] text-[15px]">
+            <p className="text-[#c9bdbd] text-[15px] header-title">
               search to your favorite movies
             </p>
           </div>

@@ -14,7 +14,7 @@
   background: #4b3a57;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  padding: 2rem;
+  padding: 1.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   color: #f1f1f1; 
 }
@@ -194,5 +194,21 @@
 
   .actions {
     justify-content: center;
+  }
+}
+
+@media (width <= 500px) {
+  .saved-movie-header h2 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .saved-movie-header p {
+    margin: 0.40rem 0 0;
+    font-size: 0.65rem;
+  }
+
+  .saved-movie-header .Released p{
+    text-align: center;
   }
 }

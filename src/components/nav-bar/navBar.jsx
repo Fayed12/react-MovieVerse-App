@@ -6,7 +6,7 @@ function NavBAr() {
         <>
             <div className="nav-bar flex justify-between items-center w-full h-[80px]">
                 <div className="logo">
-                    <img src="/MovieVerse-logo.png" alt="movieVerse logo" className="w-[200px]"/>
+                    <img src="/MovieVerse-logo.png" alt="movieVerse logo" className="w-[180px]"/>
                 </div>
                 <div className="user">
                     <LetterAvatars/>

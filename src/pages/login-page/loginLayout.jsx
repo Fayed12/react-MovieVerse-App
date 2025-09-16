@@ -76,7 +76,7 @@ function LoginLayout() {
             <div className="body">
               <Outlet context={{ setLoginStatus }} />
             </div>
-            <div className="footer">
+            <div className="login-footer">
               <p>
                 Not a member?
                 <span onClick={handleSignUp}>

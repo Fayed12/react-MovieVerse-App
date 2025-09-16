@@ -80,6 +80,10 @@ export default function SearchMovies({
     setOpenSavedMovies(!openSavedMovies);
   }
 
+  // current year
+
+  let date = new Date;
+  let CurrentYear = date.getFullYear();
   return (
     <div className="search-page">
       <div className="container">
@@ -200,7 +204,7 @@ export default function SearchMovies({
         )}
 
         <footer className="footer">
-          Powered by <span>&nbsp; Mohamed Fayed</span>
+          Powered by <span>&nbsp; Mohamed Fayed </span>&copy; {CurrentYear}
         </footer>
       </div>
     </div>
