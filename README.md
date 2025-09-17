@@ -9,6 +9,7 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material
 npm install @mui/x-data-grid
 npm install @mui/x-date-pickers
+npm install react-hot-toast
 
 ```
 

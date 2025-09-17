@@ -2,6 +2,7 @@ import MoviesSavedOverview from "../movies-save-overview/movieOverview";
 import "./savedMovies.css";
 import { useState, useEffect } from "react";
 
+
 function SavedMovies({ setSavedMovies, savedMovies }) {
   const [selectedMovieId, setSelectedMovieId] = useState("");
   const [movieDetails, setMovieDetails] = useState(null);

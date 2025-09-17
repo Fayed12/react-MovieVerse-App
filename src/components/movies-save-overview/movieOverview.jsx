@@ -1,6 +1,9 @@
 import "./movieOverview.css";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
+// toast
+import toast from "react-hot-toast";
+
 function MoviesSavedOverview({ setMOvieId, setSavedMovies, savedMovies }) {
 
   // handle click on the card
@@ -16,6 +19,7 @@ function MoviesSavedOverview({ setMOvieId, setSavedMovies, savedMovies }) {
     setSavedMovies(() => {
       return savedMovies.filter((movie) => movie.imdbID !== id);
     });
+    toast.success("delete movie was done", { id: "main-toast" })
   }
 
   return (

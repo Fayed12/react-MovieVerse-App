@@ -4,6 +4,9 @@ import SortIcon from "@mui/icons-material/Sort";
 import { Select, MenuItem } from "@mui/material";
 import SavedMovies from "../saved-movies/savedMovies";
 
+// toast
+import toast from "react-hot-toast";
+
 export default function SearchMovies({
   moviesData = [],
   loadingStatus = false,
@@ -35,8 +38,12 @@ export default function SearchMovies({
 
   // set the search value
   function handleNewSearch() {
-    setSearchValue("");
-    setMoviesDataSearch([])
+    toast.loading("loading....", { id: "main-toast" })
+    setTimeout(() => {
+      setSearchValue("");
+      setMoviesDataSearch([]);
+      toast.success("you can create new search now ", { id: "main-toast" })
+    }, 2000);
   }
 
   // handle sort movies
@@ -62,9 +69,13 @@ export default function SearchMovies({
   // handle save movie when click is done
   function handleSaveMovies(id) {
     const movie = moviesData.find((movie) => movie.imdbID == id);
-
     const updatedSavedMovies = [...savedMovies, movie];
-    setSavedMovies(updatedSavedMovies);
+
+    toast.loading("loading...", { id: "main-toast" })
+    setTimeout(() => {
+      setSavedMovies(updatedSavedMovies);
+      toast.success("The movie was saved successfully.", { id: "main-toast" });
+    }, 1500);
   }
 
   useEffect(() => {

@@ -3,6 +3,9 @@ import { useContext, useState, useEffect } from "react";
 import { userAccountContext } from "../context/user-account-context";
 import { useNavigate, useOutletContext } from "react-router";
 
+// toast
+import toast from "react-hot-toast";
+
 function SignUp() {
   const navigate = useNavigate();
   const {setLoginStatus} = useOutletContext()
@@ -31,13 +34,17 @@ function SignUp() {
       newUserAccount.userEmail.trim() === "" ||
       newUserAccount.userPassword.trim() === ""
     ) {
-      alert("please fill all fields!!");
+        toast.error("please fill all fields!!", { id: "main-toast" });
       return;
     } else {
       if (!userNameRegex.test(newUserAccount.userName.trim())) {
-        alert("please enter valid Name ex.'john doe (alex)'");
+        toast.error("please enter valid Name ex. 'john doe (alex)'", {
+          id: "main-toast",
+        });
       } else if (!userEmailRegex.test(newUserAccount.userEmail.trim())) {
-        alert("please enter valid email address ex.'example@gmail.com'");
+        toast.error("please enter valid email ex.'example@gmail.com'", {
+          id: "main-toast",
+        });
       } else {
         const nameExist = userAccounts.some(
           (user) =>
@@ -50,9 +57,13 @@ function SignUp() {
             newUserAccount.userEmail.toLowerCase().trim()
         );
         if (nameExist) {
-          alert("this user name is already exist, try another one");
+          toast.error("this user name is already exist, try another one", {
+            id: "main-toast",
+          });
         } else if (emailExist) {
-          alert("this user email is already exist, try another one");
+          toast.error("this user email is already exist, try another one", {
+            id: "main-toast",
+          });
         } else {
           setUserAccount([...userAccounts, newUserAccount]);
           setNewUserAccount({
@@ -61,7 +72,9 @@ function SignUp() {
             userEmail: "",
             userPassword: "",
           });
-          alert("signUp is done successfully");
+          toast.success("signUp is done successfully", {
+            id: "main-toast",
+          });
           setTimeout(() => {
             navigate("/login/signin", { replace: true });
             setLoginStatus("signin");

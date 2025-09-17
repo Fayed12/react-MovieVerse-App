@@ -3,6 +3,10 @@ import Stack from "@mui/material/Stack";
 import { useEffect, useState, useContext } from "react";
 import { loginStatusContext } from "../context/login-status-context";
 
+// toast
+import toast from "react-hot-toast";
+
+
 export default function LetterAvatars() {
   const {setUserLoginStatus } =
     useContext(loginStatusContext);
@@ -12,10 +16,14 @@ export default function LetterAvatars() {
     let confirmLogout = confirm("Are you sure you want to logout?")
 
     if (!confirmLogout) {
-      alert("Action has been closed!!")
+      toast.error("Action has been closed!!" , { id: "main-toast" });
     } else {
-      sessionStorage.setItem("isLoggedIn", "false");
-      setUserLoginStatus(false)
+      toast.loading("Logging out...", { id: "main-toast" });
+      setTimeout(() => {
+        sessionStorage.setItem("isLoggedIn", "false");
+        setUserLoginStatus(false);
+        toast.success("you are logged out", { id: "main-toast" })
+      }, 2000);
     }
   }
 
