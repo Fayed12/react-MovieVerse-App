@@ -14,39 +14,76 @@ function SignUp() {
     userPassword: "",
   });
 
-  function handleAddNewUserAccount(e) {
-    e.preventDefault();
-    setUserAccount([...userAccounts, newUserAccount]);
-    setNewUserAccount({
-      id: "",
-      userName: "",
-      userEmail: "",
-      userPassword: "",
-    });
-    alert("signUp is done successfully");
-    setTimeout(() => {
-      navigate("/login/signin", { replace: true });
-      setLoginStatus("signin");
-    }, 3000);
-  }
-
   // store the data to localstorage
   useEffect(() => {
     localStorage.setItem("userAccounts", JSON.stringify(userAccounts));
   }, [userAccounts]);
+
+  // validation of the input field
+  const userNameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+){1,2}$/;
+  const userEmailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.com$/;
+
+  // function to handle the user sign up after save the account
+  function handleUserAccountSave(e) {
+    e.preventDefault();
+    if (
+      newUserAccount.userName.trim() === "" ||
+      newUserAccount.userEmail.trim() === "" ||
+      newUserAccount.userPassword.trim() === ""
+    ) {
+      alert("please fill all fields!!");
+      return;
+    } else {
+      if (!userNameRegex.test(newUserAccount.userName.trim())) {
+        alert("please enter valid Name ex.'john doe (alex)'");
+      } else if (!userEmailRegex.test(newUserAccount.userEmail.trim())) {
+        alert("please enter valid email address ex.'example@gmail.com'");
+      } else {
+        const nameExist = userAccounts.some(
+          (user) =>
+            user.userName.toLowerCase().trim() ===
+            newUserAccount.userName.toLowerCase().trim()
+        );
+        const emailExist = userAccounts.some(
+          (user) =>
+            user.userEmail.toLowerCase().trim() ===
+            newUserAccount.userEmail.toLowerCase().trim()
+        );
+        if (nameExist) {
+          alert("this user name is already exist, try another one");
+        } else if (emailExist) {
+          alert("this user email is already exist, try another one");
+        } else {
+          setUserAccount([...userAccounts, newUserAccount]);
+          setNewUserAccount({
+            id: Date.now(),
+            userName: "",
+            userEmail: "",
+            userPassword: "",
+          });
+          alert("signUp is done successfully");
+          setTimeout(() => {
+            navigate("/login/signin", { replace: true });
+            setLoginStatus("signin");
+          }, 2000);
+        }
+      }
+    }
+
+  }
   return (
     <>
       <div className="signIn">
         <div className="input-form">
-          <form onSubmit={(e) => handleAddNewUserAccount(e)}>
+          <form onSubmit={(e) => handleUserAccountSave(e)}>
             <InputLayout
               type="text"
               placeholder="userName"
-              value={newUserAccount?.userName}
+              userValue={newUserAccount?.userName}
               setValue={(e) =>
                 setNewUserAccount({
                   ...newUserAccount,
-                  userName: e.target.value,
+                  userName: e.target.value.trim(),
                 })
               }
             />
@@ -57,18 +94,18 @@ function SignUp() {
               setValue={(e) =>
                 setNewUserAccount({
                   ...newUserAccount,
-                  userEmail: e.target.value,
+                  userEmail: e.target.value.trim(),
                 })
               }
             />
             <InputLayout
               type="password"
               placeholder="password"
-              value={newUserAccount?.userPassword}
+              userValue={newUserAccount?.userPassword}
               setValue={(e) =>
                 setNewUserAccount({
                   ...newUserAccount,
-                  userPassword: e.target.value,
+                  userPassword: e.target.value.trim(),
                 })
               }
             />
