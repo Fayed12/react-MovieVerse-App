@@ -52,25 +52,27 @@ function SignIn() {
         <div className="input-form">
           <form onSubmit={(e) => handleCheckLogin(e)}>
             <InputLayout
+              id="signin1"
               type="email"
               placeholder="example@gmail.com"
               userValue={userEmail}
               setValue={(e) => setUserEmail(e.target.value)}
             />
             <InputLayout
+              id="signin2"
               type="password"
               placeholder="password"
-              value={userPassword}
+              userValue={userPassword}
               setValue={(e) => setUserPassword(e.target.value)}
               min={6}
               max={32}
             />
             <div className="button">
-              <button>signIn</button>
+              <button type="button">signIn</button>
             </div>
           </form>
         </div>
-        {openPopup && <LoginFailedPopup/>}
+        {openPopup && <LoginFailedPopup />}
       </div>
     </>
   );

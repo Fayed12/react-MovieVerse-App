@@ -90,6 +90,7 @@ function SignUp() {
         <div className="input-form">
           <form onSubmit={(e) => handleUserAccountSave(e)}>
             <InputLayout
+              id="signup1"
               type="text"
               placeholder="userName"
               userValue={newUserAccount?.userName}
@@ -101,6 +102,7 @@ function SignUp() {
               }
             />
             <InputLayout
+              id="signup2"
               type="email"
               placeholder="example@gmail.com"
               userValue={newUserAccount?.userEmail}
@@ -112,6 +114,7 @@ function SignUp() {
               }
             />
             <InputLayout
+              id="signup3"
               type="password"
               placeholder="password"
               userValue={newUserAccount?.userPassword}
@@ -123,7 +126,7 @@ function SignUp() {
               }
             />
             <div className="button">
-              <button>Register</button>
+              <button type="button">Register</button>
             </div>
           </form>
         </div>
