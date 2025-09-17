@@ -1,16 +1,43 @@
-# React + Vite
+# React + Vite project
 
-### install package we will use
+## developed by: "Mohamed Fayad"
 
+## MovieVerse App
+
+### A website to find the best movies all in one place
+
+### -------------------------------------------------------------------------------
+
+### How to install The software packages and libraries we will use
+
+#### install the react main files
 ```bash
 npm create Vite@latest app-name
+```
+#### install the react Router library
+```bash
 npm install react-router
+```
+#### install the MUI library
+```bash
 npm install @mui/material @emotion/react @emotion/styled
+```
+#### install the MUI Icon package
+```bash
 npm install @mui/icons-material
-npm install @mui/x-data-grid
-npm install @mui/x-date-pickers
+```
+#### install the Toast library
+```bash
 npm install react-hot-toast
+```
 
+#### (optional) install the Data grid package
+```bash
+npm install @mui/x-data-grid
+```
+#### (optional) install the date pickers package
+```bash
+npm install @mui/x-date-pickers
 ```
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

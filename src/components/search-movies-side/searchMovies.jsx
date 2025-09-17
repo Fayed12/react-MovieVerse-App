@@ -218,7 +218,7 @@ export default function SearchMovies({
         )}
 
         <footer className="footer">
-          Powered by <span>&nbsp; Mohamed Fayed </span>&copy; {CurrentYear}
+          developed by <span>&nbsp; Mohamed Fayed </span>&copy; {CurrentYear}
         </footer>
       </div>
     </div>
