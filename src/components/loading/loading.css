@@ -1,8 +1,8 @@
 .loading-container {
-    position: absolute;
-    width: 100%;
-    z-index: 10000;
-    height: 100vh; 
+  position: absolute;
+  width: 100%;
+  z-index: 10000;
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +38,6 @@
   }
 }
 
-/* نبض */
 @keyframes pulse {
   0%, 100% {
     opacity: 0.6;

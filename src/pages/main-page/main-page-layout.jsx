@@ -1,6 +1,6 @@
+import "./main-page-layout.css"
 import NavBAr from "../../components/nav-bar/navBar";
 import SearchPage from "../search-page/searchPage";
-import "./main-page-layout.css"
 
 function  MainPageLayout() {
     return (

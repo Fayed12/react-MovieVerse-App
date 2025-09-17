@@ -1,9 +1,12 @@
-import { createBrowserRouter, Navigate } from "react-router";
 import LoginLayout from "../pages/login-page/loginLayout";
 import MainPageLayout from "../pages/main-page/main-page-layout";
 import SignIn from "../components/signIn";
 import SignUp from "../components/signUp";
 import ProtectedRoute from "./ProtectedRoute";
+
+// react router library
+import { createBrowserRouter } from "react-router";
+//======================================================================================================================
 
 export const router = createBrowserRouter([
   {

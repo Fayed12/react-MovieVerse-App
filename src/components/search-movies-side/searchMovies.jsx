@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
 import "./searchMovies.css";
+import SavedMovies from "../saved-movies/savedMovies";
+import { useEffect, useState } from "react";
+
+// MUI library
 import SortIcon from "@mui/icons-material/Sort";
 import { Select, MenuItem } from "@mui/material";
-import SavedMovies from "../saved-movies/savedMovies";
 
-// toast
+// toast library
 import toast from "react-hot-toast";
+//======================================================================================================================
 
 export default function SearchMovies({
   moviesData = [],
@@ -28,6 +31,37 @@ export default function SearchMovies({
     return [];
   });
 
+  // set the search value
+  function handleNewSearch() {
+    toast.loading("loading....", { id: "main-toast" });
+    setTimeout(() => {
+      setSearchValue("");
+      setMoviesDataSearch([]);
+      toast.success("you can create new search now ", { id: "main-toast" });
+    }, 2000);
+  }
+
+  // handle save movie when click is done
+  function handleSaveMovies(id) {
+    const movie = moviesData.find((movie) => movie.imdbID == id);
+    const updatedSavedMovies = [...savedMovies, movie];
+
+    toast.loading("loading...", { id: "main-toast" });
+    setTimeout(() => {
+      setSavedMovies(updatedSavedMovies);
+      toast.success("The movie was saved successfully.", { id: "main-toast" });
+    }, 1500);
+  }
+
+  // handle open saved movies
+  function handleOpenSavedMovies() {
+    setOpenSavedMovies(!openSavedMovies);
+  }
+
+  // current year
+  let date = new Date();
+  let CurrentYear = date.getFullYear();
+
   // focus to input
   useEffect(() => {
     const newSearchButton = document.getElementById("newSearch");
@@ -36,18 +70,7 @@ export default function SearchMovies({
     }
   }, [searchValue]);
 
-  // set the search value
-  function handleNewSearch() {
-    toast.loading("loading....", { id: "main-toast" })
-    setTimeout(() => {
-      setSearchValue("");
-      setMoviesDataSearch([]);
-      toast.success("you can create new search now ", { id: "main-toast" })
-    }, 2000);
-  }
-
   // handle sort movies
-
   useEffect(() => {
     if (!sortValue || sortValue === "default") {
       return;
@@ -66,18 +89,7 @@ export default function SearchMovies({
     }
   }, [sortValue, setMoviesData]);
 
-  // handle save movie when click is done
-  function handleSaveMovies(id) {
-    const movie = moviesData.find((movie) => movie.imdbID == id);
-    const updatedSavedMovies = [...savedMovies, movie];
-
-    toast.loading("loading...", { id: "main-toast" })
-    setTimeout(() => {
-      setSavedMovies(updatedSavedMovies);
-      toast.success("The movie was saved successfully.", { id: "main-toast" });
-    }, 1500);
-  }
-
+  // saved movies to localstorage
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("userAccount"));
     localStorage.setItem(
@@ -86,15 +98,6 @@ export default function SearchMovies({
     );
   }, [savedMovies]);
 
-  // handle open saved movies
-  function handleOpenSavedMovies() {
-    setOpenSavedMovies(!openSavedMovies);
-  }
-
-  // current year
-
-  let date = new Date;
-  let CurrentYear = date.getFullYear();
   return (
     <div className="search-page">
       <div className="container">

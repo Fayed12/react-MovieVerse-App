@@ -1,14 +1,17 @@
 import InputLayout from "./input/main-input";
 import { useContext, useState, useEffect } from "react";
 import { userAccountContext } from "../context/user-account-context";
+
+// react router library
 import { useNavigate, useOutletContext } from "react-router";
 
-// toast
+// toast library
 import toast from "react-hot-toast";
+//======================================================================================================================
 
 function SignUp() {
   const navigate = useNavigate();
-  const {setLoginStatus} = useOutletContext()
+  const { setLoginStatus } = useOutletContext();
   const { userAccounts, setUserAccount } = useContext(userAccountContext);
   const [newUserAccount, setNewUserAccount] = useState({
     id: Date.now(),
@@ -34,7 +37,7 @@ function SignUp() {
       newUserAccount.userEmail.trim() === "" ||
       newUserAccount.userPassword.trim() === ""
     ) {
-        toast.error("please fill all fields!!", { id: "main-toast" });
+      toast.error("please fill all fields!!", { id: "main-toast" });
       return;
     } else {
       if (!userNameRegex.test(newUserAccount.userName.trim())) {
@@ -82,7 +85,6 @@ function SignUp() {
         }
       }
     }
-
   }
   return (
     <>

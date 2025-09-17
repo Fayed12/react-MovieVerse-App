@@ -1,47 +1,47 @@
 import "./searchPage.css";
-import InputLayout from "../../components/input/main-input";
 import { useState, useEffect } from "react";
+import InputLayout from "../../components/input/main-input";
 import SearchMovies from "../../components/search-movies-side/searchMovies";
 
 function SearchPage() {
+  const [loading, setLoading] = useState(false);
+  const [moviesDataSearch, setMoviesDataSearch] = useState([]);
   const [searchValue, setSearchValue] = useState(() => {
     let search = sessionStorage.getItem("search");
     if (search) {
       return search;
     } else {
-      return ""
+      return "";
     }
-    });
-    const [loading , setLoading] = useState(false)
-    const [moviesDataSearch , setMoviesDataSearch] = useState([])
-    
-    useEffect(() => {
+  });
 
-        const controller = new AbortController;
-        async function fetchData() {
-          try {
-            sessionStorage.setItem("search", searchValue)
-                setLoading(true)
-                const res = await fetch(`https://www.omdbapi.com/?apikey=eb0d837a&s=${searchValue}` , {signal:controller.signal});
-                if (!res.ok) {
-                    throw new Error("something error in fetching data from API");
-                }
-                const moviesData =await res.json();
-                if (moviesData.Response === "False") {
-                    throw new Error(
-                    "something error in parsing data"
-                    );
-                }
-                setMoviesDataSearch(moviesData.Search);
-            } catch (err){
-                console.log(err.message);
-            } finally {
-                setLoading(false);
-            }
+  useEffect(() => {
+    const controller = new AbortController();
+    async function fetchData() {
+      try {
+        sessionStorage.setItem("search", searchValue);
+        setLoading(true);
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=eb0d837a&s=${searchValue}`,
+          { signal: controller.signal }
+        );
+        if (!res.ok) {
+          throw new Error("something error in fetching data from API");
         }
-        fetchData()
-        return () => controller.abort();
-    }, [searchValue, setLoading, setMoviesDataSearch])
+        const moviesData = await res.json();
+        if (moviesData.Response === "False") {
+          throw new Error("something error in parsing data");
+        }
+        setMoviesDataSearch(moviesData.Search);
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+    return () => controller.abort();
+  }, [searchValue, setLoading, setMoviesDataSearch]);
 
   return (
     <>

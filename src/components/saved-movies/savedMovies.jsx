@@ -1,7 +1,7 @@
-import MoviesSavedOverview from "../movies-save-overview/movieOverview";
 import "./savedMovies.css";
+import MoviesSavedOverview from "../movies-save-overview/movieOverview";
 import { useState, useEffect } from "react";
-
+//======================================================================================================================
 
 function SavedMovies({ setSavedMovies, savedMovies }) {
   const [selectedMovieId, setSelectedMovieId] = useState("");
@@ -9,13 +9,14 @@ function SavedMovies({ setSavedMovies, savedMovies }) {
   const [loading, setLoading] = useState(false);
 
   // fetch data by id
-    useEffect(() => {
-        const controller = new AbortController();
+  useEffect(() => {
+    const controller = new AbortController();
     async function fetchDataById() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://www.omdbapi.com/?apikey=eb0d837a&i=${selectedMovieId}`,{signal:controller.signal}
+          `https://www.omdbapi.com/?apikey=eb0d837a&i=${selectedMovieId}`,
+          { signal: controller.signal }
         );
         if (!res.ok) {
           throw new Error("something went wrong when fetching the movie data!");
@@ -32,9 +33,9 @@ function SavedMovies({ setSavedMovies, savedMovies }) {
         setLoading(false);
       }
     }
-        fetchDataById();
-        
-        return () => controller.abort();
+    fetchDataById();
+
+    return () => controller.abort();
   }, [selectedMovieId]);
   return (
     <>

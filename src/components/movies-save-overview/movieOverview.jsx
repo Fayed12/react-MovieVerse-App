@@ -1,11 +1,13 @@
 import "./movieOverview.css";
+
+// MUI library
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-// toast
+// toast library
 import toast from "react-hot-toast";
+// ===========================================================================================================
 
 function MoviesSavedOverview({ setMOvieId, setSavedMovies, savedMovies }) {
-
   // handle click on the card
   function handleSelectedMovies(id) {
     const movie = savedMovies.find((movie) => {
@@ -19,7 +21,7 @@ function MoviesSavedOverview({ setMOvieId, setSavedMovies, savedMovies }) {
     setSavedMovies(() => {
       return savedMovies.filter((movie) => movie.imdbID !== id);
     });
-    toast.success("delete movie was done", { id: "main-toast" })
+    toast.success("delete movie was done", { id: "main-toast" });
   }
 
   return (

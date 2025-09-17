@@ -1,9 +1,12 @@
 import "./login.css";
 import { useState, useContext, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router";
 import { loginStatusContext } from "../../context/login-status-context";
 import LoginSuccessPopup from "../../components/login-success-popup/login-success";
 import LoadingPage from "../../components/loading/loading";
+
+// react router library
+import { Outlet, useNavigate } from "react-router";
+//======================================================================================================================
 
 function LoginLayout() {
   const navigate = useNavigate();
@@ -28,15 +31,15 @@ function LoginLayout() {
     if (userLoginStatus === true) {
       setOpenPopup(true);
       const loadingTimer = setTimeout(() => {
-        setOpenLoading(true)
+        setOpenLoading(true);
       }, 2000);
       const timer = setTimeout(() => {
         setOpenPopup(false);
-        setOpenLoading(false)
+        setOpenLoading(false);
       }, 4000);
 
       function clearTime() {
-        clearTimeout(timer)
+        clearTimeout(timer);
         clearTimeout(loadingTimer);
       }
 
