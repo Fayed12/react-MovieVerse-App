@@ -71,7 +71,7 @@ function SignIn() {
               max={32}
             />
             <div className="button">
-              <button type="button">signIn</button>
+              <button type="submit">signIn</button>
             </div>
           </form>
         </div>

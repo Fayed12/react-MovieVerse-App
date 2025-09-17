@@ -128,7 +128,7 @@ function SignUp() {
               }
             />
             <div className="button">
-              <button type="button">Register</button>
+              <button type="submit">Register</button>
             </div>
           </form>
         </div>
