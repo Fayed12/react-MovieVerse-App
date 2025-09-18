@@ -31,6 +31,11 @@ npm install @mui/icons-material
 npm install react-hot-toast
 ```
 
+#### install the tailwind library
+```bash
+npm install tailwindcss @tailwindcss/vite
+```
+
 #### (optional) install the Data grid package
 ```bash
 npm install @mui/x-data-grid
